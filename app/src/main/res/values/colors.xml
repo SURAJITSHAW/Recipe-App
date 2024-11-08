@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryColor">#FF5722</color> <!-- A warm orange, symbolizing freshness and energy -->
+    <color name="accentColor">#FFC107</color> <!-- A rich yellow, often associated with warmth and creativity -->
+    <color name="background">#FFF8E1</color> <!-- A soft, off-white with a hint of yellow for a natural, welcoming feel -->
+    <color name="textColorPrimary">#212121</color> <!-- Dark grey for readability -->
+    <color name="textColorSecondary">#757575</color> <!-- Light grey for less prominent text -->
+    <color name="errorColor">#D32F2F</color> <!-- A vibrant red for error messages or alerts -->
+    <color name="buttonColor">#4CAF50</color> <!-- Fresh green, representing health and organic ingredients -->
+
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
