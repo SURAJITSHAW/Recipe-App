@@ -1,5 +1,6 @@
 package com.example.recipeapp.Fragments
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -20,12 +23,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.bumptech.glide.request.target.Target
+import com.example.recipeapp.Activities.MealDetailsActivity
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var imgView: ImageView
     private lateinit var loadingAnimation: LottieAnimationView
+    private lateinit var randomText: TextView
+    private lateinit var randomCard: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +47,8 @@ class HomeFragment : Fragment() {
         // Initialize ImageView and LottieAnimationView
         imgView = view.findViewById(R.id.randomMealImageView)
         loadingAnimation = view.findViewById(R.id.lottieAnimationView)
+        randomText = view.findViewById(R.id.randomText)
+        randomCard = view.findViewById(R.id.randomMealCard)
 
         // Start by hiding ImageView and showing Lottie animation
 //        imgView.visibility = View.GONE
@@ -51,6 +59,7 @@ class HomeFragment : Fragment() {
 
         return view
     }
+
 
     private fun showAnimation(show: Boolean) {
         // Show or hide the Lottie animation and ImageView
@@ -94,10 +103,24 @@ class HomeFragment : Fragment() {
                                     isFirstResource: Boolean
                                 ): Boolean {
                                     showAnimation(false) // Hide animation on success
+                                    // Once the image is loaded and the Lottie animation is stopped
+                                    randomText.visibility = View.VISIBLE
+                                    randomText.text = randomMeal.meals[0].strMeal
                                     return false
                                 }
                             })
                             .into(imgView)
+
+
+                        imgView.setOnClickListener {
+                            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(requireContext(), MealDetailsActivity::class.java)
+                            // Ensure Meal class is Parcelable or Serializable
+                            intent.putExtra("meal_data", randomMeal.meals[0])
+                            startActivity(intent)
+                        }
+
+
 
                         Toast.makeText(requireContext(), "Random meal: ${randomMeal.meals[0].strMeal}", Toast.LENGTH_SHORT).show()
                     }
