@@ -60,4 +60,18 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+    // Gson
+    implementation("com.google.code.gson:gson:2.10")
+
+//    lottie animation
+    implementation("com.airbnb.android:lottie:6.0.0")
+
 }
