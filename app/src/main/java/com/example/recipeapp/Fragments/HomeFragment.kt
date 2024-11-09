@@ -18,16 +18,19 @@ import com.bumptech.glide.request.RequestListener
 import com.example.recipeapp.Activities.MealDetailsActivity
 import com.example.recipeapp.viewModels.HomeViewModel
 import com.bumptech.glide.request.target.Target
+import com.example.recipeapp.Activities.CategoryWiseRecipeActivity
+import com.example.recipeapp.Models.Category
 import com.example.recipeapp.Models.Meal
 import com.example.recipeapp.adapter.CategoryAdapter
 import com.example.recipeapp.adapter.TrendingMealsAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding // Import the generated binding class
 
-class HomeFragment : Fragment(), TrendingMealsAdapter.OnItemClickListener {
+class HomeFragment : Fragment(), TrendingMealsAdapter.OnItemClickListener, CategoryAdapter.OnItemClickListener {
 
     companion object {
          const val MEAL_ID = "com.example.recipeapp.Fragments.randomRecipeId"
          const val IMG_URL = "com.example.recipeapp.Fragments.randomRecipeImageurl"
+         const val CATEGORY_NAME = "com.example.recipeapp.Fragments.categoryId"
     }
 
     private val viewModel: HomeViewModel by viewModels()
@@ -64,7 +67,7 @@ class HomeFragment : Fragment(), TrendingMealsAdapter.OnItemClickListener {
         viewModel.categoriesLiveData.observe(viewLifecycleOwner) { catList ->
             if (catList != null) {
                 binding.categoryRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-                binding.categoryRecyclerView.adapter = CategoryAdapter(catList)
+                binding.categoryRecyclerView.adapter = CategoryAdapter(catList, this)
             }
         }
     }
@@ -151,5 +154,11 @@ class HomeFragment : Fragment(), TrendingMealsAdapter.OnItemClickListener {
         intent.putExtra(IMG_URL, meal.strMealThumb)
         startActivity(intent)
 
+    }
+
+    override fun onItemClick(category: Category) {
+        val intent = Intent(requireContext(), CategoryWiseRecipeActivity::class.java)
+        intent.putExtra(CATEGORY_NAME, category.strCategory)
+        startActivity(intent)
     }
 }

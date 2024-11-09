@@ -7,13 +7,13 @@ import com.bumptech.glide.Glide
 import com.example.recipeapp.Models.Category
 import com.example.recipeapp.databinding.ItemCategoryBinding
 
-class CategoryAdapter(private val items: List<Category>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(){
+class CategoryAdapter(private val items: List<Category>, private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(){
 
 
         // Define an interface for item clicks
-//        interface OnItemClickListener {
-//            fun onItemClick(category: Category)
-//        }
+        interface OnItemClickListener {
+            fun onItemClick(category: Category)
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
             val binding = ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,9 +30,9 @@ class CategoryAdapter(private val items: List<Category>) : RecyclerView.Adapter<
             holder.binding.categoryTextView.text = item.strCategory
 
             // Set up click listener for each item
-//            holder.itemView.setOnClickListener {
-//                itemClickListener.onItemClick(item)
-//            }
+            holder.itemView.setOnClickListener {
+                itemClickListener.onItemClick(item)
+            }
         }
 
         override fun getItemCount(): Int = items.size

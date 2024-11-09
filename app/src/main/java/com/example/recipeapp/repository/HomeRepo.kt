@@ -41,8 +41,6 @@ class HomeRepo {
         })
     }
 
-
-
     fun getRecipesByCat(category: String) {
         RetrofitInstance.api.getMealByCategory(category).enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
