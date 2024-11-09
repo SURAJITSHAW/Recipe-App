@@ -9,18 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.example.recipeapp.R
 import com.example.recipeapp.Activities.MealDetailsActivity
 import com.example.recipeapp.viewModels.HomeViewModel
 import com.bumptech.glide.request.target.Target
 import com.example.recipeapp.databinding.FragmentHomeBinding // Import the generated binding class
 
 class HomeFragment : Fragment() {
+
+    companion object {
+         const val MEAL_ID = "com.example.recipeapp.Fragments.randomRecipeId"
+         const val IMG_URL = "com.example.recipeapp.Fragments.randomRecipeImageurl"
+    }
+
     private val viewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!! // Use binding reference to access views
@@ -82,7 +86,8 @@ class HomeFragment : Fragment() {
 
                 binding.randomMealImageView.setOnClickListener {
                     val intent = Intent(requireContext(), MealDetailsActivity::class.java)
-                    intent.putExtra("meal_data", recipe)
+                    intent.putExtra(HomeFragment.MEAL_ID, recipe.idMeal)
+                    intent.putExtra(HomeFragment.IMG_URL, recipe.strMealThumb)
                     startActivity(intent)
                 }
             } else {

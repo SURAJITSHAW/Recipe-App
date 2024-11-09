@@ -38,7 +38,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-    
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/linearProgressBar"
         android:layout_width="match_parent"
@@ -66,10 +66,38 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:layout_marginTop="@dimen/_10sdp"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/mealCategory"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="Category: "
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mealLocation"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="Location: "
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
             <TextView
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -89,7 +117,21 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="@dimen/_8ssp"
                 android:textSize="@dimen/_12sdp" />
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ImageView
+        android:elevation="@dimen/_3sdp"
+        android:layout_gravity="bottom|end"
+        android:id="@+id/btn_yt"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:src="@drawable/ic_btn_youtube"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

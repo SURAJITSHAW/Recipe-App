@@ -1,6 +1,5 @@
 package com.example.recipeapp.Models
 
-import java.io.Serializable
 
 data class Meal(
     val dateModified: Any,
@@ -56,4 +55,4 @@ data class Meal(
     val strSource: String,
     val strTags: Any,
     val strYoutube: String
-): Serializable
+)
