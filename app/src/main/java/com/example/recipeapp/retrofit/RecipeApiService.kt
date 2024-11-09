@@ -12,4 +12,7 @@ interface RecipeApiService {
 
     @GET("lookup.php")
     fun getRecipe(@Query("i") id: String): Call<MealList>
+
+    @GET("filter.php")
+    fun getMealByCategory(@Query("c") cat: String): Call<MealList>
 }

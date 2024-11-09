@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -16,9 +17,11 @@ import com.bumptech.glide.request.RequestListener
 import com.example.recipeapp.Activities.MealDetailsActivity
 import com.example.recipeapp.viewModels.HomeViewModel
 import com.bumptech.glide.request.target.Target
+import com.example.recipeapp.Models.Meal
+import com.example.recipeapp.adapter.TrendingMealsAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding // Import the generated binding class
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), TrendingMealsAdapter.OnItemClickListener {
 
     companion object {
          const val MEAL_ID = "com.example.recipeapp.Fragments.randomRecipeId"
@@ -50,6 +53,24 @@ class HomeFragment : Fragment() {
 
         // Observe the LiveData from the ViewModel
         observeRandomRecipeLivedata()
+
+//        set up the trending now recycler view
+        setUpTrendingNowRecyclerView()
+    }
+
+    private fun setUpTrendingNowRecyclerView() {
+//        call the method in viewmodel to get the trending meals
+        viewModel.getTrendingMeals("chicken")
+//        observe the livedate
+        viewModel.trendingMealsLiveData.observe(viewLifecycleOwner) { mealsList ->
+            if (mealsList != null) {
+                binding.trendingRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                binding.trendingRecyclerView.adapter = TrendingMealsAdapter(
+                    mealsList,
+                    this
+                )
+            }
+        }
     }
 
     private fun observeRandomRecipeLivedata() {
@@ -86,8 +107,8 @@ class HomeFragment : Fragment() {
 
                 binding.randomMealImageView.setOnClickListener {
                     val intent = Intent(requireContext(), MealDetailsActivity::class.java)
-                    intent.putExtra(HomeFragment.MEAL_ID, recipe.idMeal)
-                    intent.putExtra(HomeFragment.IMG_URL, recipe.strMealThumb)
+                    intent.putExtra(MEAL_ID, recipe.idMeal)
+                    intent.putExtra(IMG_URL, recipe.strMealThumb)
                     startActivity(intent)
                 }
             } else {
@@ -111,5 +132,13 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Avoid memory leaks
+    }
+
+    override fun onItemClick(meal: Meal) {
+        val intent = Intent(requireContext(), MealDetailsActivity::class.java)
+        intent.putExtra(MEAL_ID, meal.idMeal)
+        intent.putExtra(IMG_URL, meal.strMealThumb)
+        startActivity(intent)
+
     }
 }

@@ -58,14 +58,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".09" />
+            app:layout_constraintGuide_percent=".05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".91" />
+            app:layout_constraintGuide_percent=".95" />
         <androidx.cardview.widget.CardView
             android:id="@+id/randomMealCard"
             app:cardElevation="@dimen/_3sdp"
@@ -138,10 +138,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/trendingRecyclerView"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_90sdp"
             app:layout_constraintTop_toBottomOf="@id/trendingTextView"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
             android:orientation="horizontal"/>
 
         <TextView

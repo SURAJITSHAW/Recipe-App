@@ -77,24 +77,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_marginHorizontal="@dimen/_5sdp"
                     android:id="@+id/mealCategory"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="monospace"
                     android:text="Category: "
-                    android:textColor="@color/textColorSecondary"
+                    android:padding="@dimen/_4sdp"
+                    android:background="@drawable/semi_transparent_bg"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:padding="@dimen/_4sdp"
+                    android:background="@drawable/semi_transparent_bg"
+                    android:textColor="@color/white"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
                     android:id="@+id/mealLocation"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="monospace"
                     android:text="Location: "
-                    android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/_10ssp"
                     android:textStyle="bold" />
             </LinearLayout>
