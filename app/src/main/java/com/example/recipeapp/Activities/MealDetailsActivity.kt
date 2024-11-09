@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -61,9 +62,19 @@ class MealDetailsActivity : AppCompatActivity() {
                 binding.mealDetails.text = meal.strInstructions
                 binding.btnYt.visibility = View.VISIBLE
                 binding.btnYt.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(meal.strYoutube))
-                    startActivity(intent)
+                    val url = meal.strYoutube
+                    if (url.isNotEmpty()) {
+                        try {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            startActivity(intent)
+                        } catch (e: Exception) {
+                            Toast.makeText(this, "Unable to open link", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(this, "YouTube link unavailable!", Toast.LENGTH_SHORT).show()
+                    }
                 }
+
                 binding.collapsingToolbar.title = meal.strMeal
                 binding.mealCategory.text = "Category : ${meal.strCategory}"
                 binding.mealLocation.text = "Location : ${meal.strArea}"
