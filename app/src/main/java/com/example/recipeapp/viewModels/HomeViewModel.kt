@@ -2,6 +2,7 @@ package com.example.recipeapp.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.recipeapp.Models.Category
 import com.example.recipeapp.Models.Meal
 import com.example.recipeapp.repository.HomeRepo
 
@@ -20,6 +21,13 @@ class HomeViewModel: ViewModel() {
 
     fun getTrendingMeals(category: String) {
         repo.getRecipesByCat(category)
+    }
+
+    //    exposing livedate to the ui for all categories
+    val categoriesLiveData: LiveData<List<Category>?> = repo.categories
+
+    fun getCategories() {
+        repo.getAllCatgories()
     }
 
 }

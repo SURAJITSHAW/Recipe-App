@@ -2,6 +2,8 @@ package com.example.recipeapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.Models.Category
+import com.example.recipeapp.Models.CategoryList
 import com.example.recipeapp.Models.Meal
 import com.example.recipeapp.Models.MealList
 import com.example.recipeapp.retrofit.RetrofitInstance
@@ -15,6 +17,30 @@ class HomeRepo {
 
     private var _recipesByCategory = MutableLiveData<List<Meal>?>()
     val recipesByCategory: LiveData<List<Meal>?> get() = _recipesByCategory
+
+    private var _categories = MutableLiveData<List<Category>?>()
+    val categories: LiveData<List<Category>?> get() = _categories
+
+
+    fun getAllCatgories() {
+        RetrofitInstance.api.getAllCategories().enqueue(object : Callback<CategoryList> {
+            override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
+                if (response.isSuccessful) {
+                    // Handle the response and update LiveData
+                    val catList = response.body()?.categories
+                    _categories.value = catList
+                } else {
+                    _categories.value = null // Handle failure scenario
+                }
+            }
+
+            override fun onFailure(call: Call<CategoryList>, t: Throwable) {
+                // Handle error, maybe show a toast or log
+                _recipesByCategory.value = null // If there's a failure, you can set an empty list
+            }
+        })
+    }
+
 
 
     fun getRecipesByCat(category: String) {

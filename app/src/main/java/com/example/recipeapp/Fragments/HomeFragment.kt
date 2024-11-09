@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -18,6 +19,7 @@ import com.example.recipeapp.Activities.MealDetailsActivity
 import com.example.recipeapp.viewModels.HomeViewModel
 import com.bumptech.glide.request.target.Target
 import com.example.recipeapp.Models.Meal
+import com.example.recipeapp.adapter.CategoryAdapter
 import com.example.recipeapp.adapter.TrendingMealsAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding // Import the generated binding class
 
@@ -40,22 +42,31 @@ class HomeFragment : Fragment(), TrendingMealsAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout using ViewBinding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root // Return the root view of the binding object
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ask ViewModel to get the data from repo
         viewModel.getRandomRecipe()
-
-        // Observe the LiveData from the ViewModel
         observeRandomRecipeLivedata()
 
-//        set up the trending now recycler view
         setUpTrendingNowRecyclerView()
+
+        setUpCategoriesRecyclerView()
+    }
+
+    private fun setUpCategoriesRecyclerView() {
+//        call the method in viewmodel to get the trending meals
+        viewModel.getCategories()
+//        observe the livedate
+        viewModel.categoriesLiveData.observe(viewLifecycleOwner) { catList ->
+            if (catList != null) {
+                binding.categoryRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
+                binding.categoryRecyclerView.adapter = CategoryAdapter(catList)
+            }
+        }
     }
 
     private fun setUpTrendingNowRecyclerView() {

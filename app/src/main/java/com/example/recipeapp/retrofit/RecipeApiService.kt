@@ -1,5 +1,6 @@
 package com.example.recipeapp.retrofit
 
+import com.example.recipeapp.Models.CategoryList
 import com.example.recipeapp.Models.MealList
 import retrofit2.Call
 import retrofit2.http.GET
@@ -9,6 +10,9 @@ interface RecipeApiService {
 
     @GET("random.php")
     fun getRandromRecipe(): Call<MealList>
+
+    @GET("categories.php")
+    fun getAllCategories(): Call<CategoryList>
 
     @GET("lookup.php")
     fun getRecipe(@Query("i") id: String): Call<MealList>
