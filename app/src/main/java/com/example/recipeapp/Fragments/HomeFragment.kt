@@ -63,7 +63,7 @@ class HomeFragment : Fragment(), TrendingMealsAdapter.OnItemClickListener {
 //        observe the livedate
         viewModel.categoriesLiveData.observe(viewLifecycleOwner) { catList ->
             if (catList != null) {
-                binding.categoryRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
+                binding.categoryRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
                 binding.categoryRecyclerView.adapter = CategoryAdapter(catList)
             }
         }

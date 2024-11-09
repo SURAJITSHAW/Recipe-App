@@ -44,7 +44,7 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:id="@+id/discoverTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
 
 
         <TextView
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:id="@+id/trendingTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -139,17 +139,17 @@
             app:layout_constraintTop_toBottomOf="@id/randomMealCard" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trendingRecyclerView"
             android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/trendingRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_90sdp"
+            android:layout_height="@dimen/_130sdp"
             app:layout_constraintTop_toBottomOf="@id/trendingTextView"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
             app:layout_constraintEnd_toStartOf="@id/guidelineRight"
             android:orientation="horizontal"/>
 
         <TextView
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:id="@+id/categoryTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -161,22 +161,15 @@
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@id/trendingRecyclerView" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:cardUseCompatPadding="true"
-            app:cardCornerRadius="@dimen/_3sdp"
-            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@id/categoryTextView"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categoryRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
 
-        </androidx.cardview.widget.CardView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:id="@+id/categoryRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+                app:layout_constraintTop_toBottomOf="@id/categoryTextView"/>
 
 
 
