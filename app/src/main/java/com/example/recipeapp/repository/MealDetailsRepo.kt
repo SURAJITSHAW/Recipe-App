@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.Models.Meal
 import com.example.recipeapp.Models.MealList
+import com.example.recipeapp.db.FavMealsDao
 import com.example.recipeapp.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MealDetailsRepo {
+class MealDetailsRepo (private val recipeDao: FavMealsDao){
     private var _mealDetails = MutableLiveData<Meal?>()
     val mealDetailsLivedata: LiveData<Meal?> get() = _mealDetails
 
@@ -29,5 +30,11 @@ class MealDetailsRepo {
                 _mealDetails.value = null
             }
         })
+    }
+
+    //    Room DB operations
+
+    suspend fun insert(recipe: Meal) {
+        recipeDao.insert(recipe)
     }
 }

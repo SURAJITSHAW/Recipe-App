@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.recipeapp.Fragments.HomeFragment
 import com.example.recipeapp.Models.Meal
@@ -22,7 +23,7 @@ import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
 
 class MealDetailsActivity : AppCompatActivity() {
-    private val viewModel: MealDetailsViewModel by viewModels()
+    private lateinit var  viewModel: MealDetailsViewModel
 
     private lateinit var binding: ActivityMealDetailsBinding
     private lateinit var mealId: String
@@ -41,6 +42,8 @@ class MealDetailsActivity : AppCompatActivity() {
             insets
         }
 
+        viewModel = ViewModelProvider(this)[MealDetailsViewModel::class.java]
+
         // Set the initial status bar color
         window.statusBarColor = ContextCompat.getColor(this, R.color.primaryColor)
 
@@ -53,6 +56,15 @@ class MealDetailsActivity : AppCompatActivity() {
 
         setupCollapsingToolbar()
 
+        setFavbtnListener()
+
+    }
+
+    private fun setFavbtnListener() {
+        binding.btnFavourite.setOnClickListener{
+            viewModel.insertMeal(mealDetails!!)
+            Toast.makeText(this, "Meal saved", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun observeMealDetailsLivedata() {

@@ -30,8 +30,8 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="Meal Name"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="@dimen/_16ssp"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />
 
     </LinearLayout>
