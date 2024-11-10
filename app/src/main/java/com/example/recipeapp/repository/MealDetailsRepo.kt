@@ -34,7 +34,15 @@ class MealDetailsRepo (private val recipeDao: FavMealsDao){
 
     //    Room DB operations
 
+
     suspend fun insert(recipe: Meal) {
         recipeDao.insert(recipe)
     }
+
+    suspend fun delete(recipe: Meal) {
+        recipeDao.delete(recipe)
+    }
+
+    val allRecipes: LiveData<List<Meal>> = recipeDao.getAllRecipes()
+
 }

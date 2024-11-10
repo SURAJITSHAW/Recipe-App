@@ -1,60 +1,78 @@
 package com.example.recipeapp.Fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipeapp.Activities.MealDetailsActivity
+import com.example.recipeapp.Fragments.HomeFragment.Companion.IMG_URL
+import com.example.recipeapp.Fragments.HomeFragment.Companion.MEAL_ID
+import com.example.recipeapp.Models.Meal
 import com.example.recipeapp.R
+import com.example.recipeapp.adapter.RecipeAdapter
+import com.example.recipeapp.databinding.FragmentFavBinding
+import com.example.recipeapp.viewModels.MealDetailsViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FavFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FavFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class FavFragment : Fragment(), RecipeAdapter.OnItemClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var  viewModel: MealDetailsViewModel
+
+    // Declare binding variable
+    private var _binding: FragmentFavBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fav, container, false)
+        // Inflate the layout using binding
+        _binding = FragmentFavBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Initialize the ViewModel
+        viewModel = ViewModelProvider(this)[MealDetailsViewModel::class.java]
+
+        viewModel.allRecipes.observe(viewLifecycleOwner){ mealList ->
+            if (mealList != null){
+                Toast.makeText(requireContext(), "mealList is not null", Toast.LENGTH_SHORT).show()
+
+                binding.rvFavRecipeRecyler.apply {
+                    adapter = RecipeAdapter(mealList, this@FavFragment)
+                    layoutManager = GridLayoutManager(context, 1, LinearLayoutManager.VERTICAL, false)
+
                 }
+            } else {
+                Toast.makeText(requireContext(), "mealList is null", Toast.LENGTH_SHORT).show()
+
+                Log.d("FavFragment", "mealList is null or empty")
             }
+        }
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Clear the binding reference when the view is destroyed
+        _binding = null
+    }
+
+    override fun onItemClick(meal: Meal) {
+        val intent = Intent(requireContext(), MealDetailsActivity::class.java)
+        intent.putExtra(HomeFragment.MEAL_ID, meal.idMeal)
+        intent.putExtra(HomeFragment.IMG_URL, meal.strMealThumb)
+        startActivity(intent)
     }
 }

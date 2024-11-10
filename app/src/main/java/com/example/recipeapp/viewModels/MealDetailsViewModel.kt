@@ -15,9 +15,13 @@ class MealDetailsViewModel(application: Application): AndroidViewModel(applicati
 
     private val repository: MealDetailsRepo
 
+    val allRecipes: LiveData<List<Meal>>
+
     init {
         val recipeDao = MealDB.getDatabase(application).mealDao()
         repository = MealDetailsRepo(recipeDao)
+        allRecipes = repository.allRecipes
+
     }
 
     //    exposing livedate to the ui
@@ -27,11 +31,17 @@ class MealDetailsViewModel(application: Application): AndroidViewModel(applicati
         repository.getMeal(id)
     }
 
-// room operations
+    // room operations
+
     fun insertMeal(meal: Meal) {
         viewModelScope.launch {
             repository.insert(meal)
         }
     }
+
+    fun delete(recipe: Meal) = viewModelScope.launch {
+        repository.delete(recipe)
+    }
+
 
 }
