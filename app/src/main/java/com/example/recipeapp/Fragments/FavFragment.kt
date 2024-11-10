@@ -46,15 +46,15 @@ class FavFragment : Fragment(), RecipeAdapter.OnItemClickListener {
 
         viewModel.allRecipes.observe(viewLifecycleOwner){ mealList ->
             if (mealList != null){
-                Toast.makeText(requireContext(), "mealList is not null", Toast.LENGTH_SHORT).show()
 
+                binding.tvFavRecipesCountText.text = "Total Favourites: " + mealList.size.toString()
                 binding.rvFavRecipeRecyler.apply {
                     adapter = RecipeAdapter(mealList, this@FavFragment)
                     layoutManager = GridLayoutManager(context, 1, LinearLayoutManager.VERTICAL, false)
 
                 }
             } else {
-                Toast.makeText(requireContext(), "mealList is null", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "No favourite meals", Toast.LENGTH_SHORT).show()
 
                 Log.d("FavFragment", "mealList is null or empty")
             }

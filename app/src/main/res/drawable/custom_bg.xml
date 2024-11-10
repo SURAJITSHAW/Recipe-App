@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Solid color for the background -->
+    <solid android:color="@color/background"/>
+    <!-- Curved top corners -->
+    <corners android:bottomLeftRadius="56dp" android:bottomRightRadius="56dp"/>
+</shape>
+
